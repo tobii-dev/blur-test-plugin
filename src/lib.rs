@@ -5,11 +5,11 @@ use simplelog::{
 };
 
 #[repr(C)]
-struct MySuperPlugin {}
+struct MyDummyPlugin {}
 
-impl BlurPlugin for MySuperPlugin {
+impl BlurPlugin for MyDummyPlugin {
 	fn name(&self) -> &'static str {
-		"MySuperPlugin!"
+		"MyDummyPlugin"
 	}
 
 	fn on_event(&self, event: &BlurEvent) {
@@ -28,7 +28,7 @@ impl BlurPlugin for MySuperPlugin {
 
 #[no_mangle]
 fn plugin_init(_api: &mut dyn BlurAPI) -> Box<dyn BlurPlugin> {
-	let plugin = MySuperPlugin {};
+	let plugin = MyDummyPlugin {};
 	let cfg = ConfigBuilder::new()
 		.set_time_offset_to_local()
 		.unwrap()
@@ -51,5 +51,6 @@ fn plugin_init(_api: &mut dyn BlurAPI) -> Box<dyn BlurPlugin> {
 	])
 	.unwrap();
 	log::info!("Init plugin: {}", plugin.name());
+
 	Box::new(plugin)
 }
