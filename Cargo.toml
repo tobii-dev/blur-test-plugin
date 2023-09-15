@@ -1,12 +1,12 @@
 [package]
-name = "blur-plugin-test"
+name = "blur-test-plugin"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "dummy_plugin"
+name = "my_dummy_plugin"
 crate-type = ["cdylib"]
 
 [dependencies]
