@@ -13,10 +13,23 @@ impl BlurPlugin for MyDummyPlugin {
 	}
 
 	fn on_event(&self, event: &BlurEvent) {
+		log::debug!("Event: {event:?} from plugin: {}", self.name());
 		match &event {
-			BlurEvent::NoEvent => {}
-			BlurEvent::Login(_u) => {}
-			BlurEvent::Screen(_u) => {}
+			BlurEvent::NoEvent => {
+				// NoEvent
+			}
+			BlurEvent::LoginStart { username: _ } => {
+				// LoginStart
+			}
+			BlurEvent::LoginEnd {
+				username: _,
+				success: _,
+			} => {
+				// LoginEnd
+			}
+			BlurEvent::Screen { name: _ } => {
+				// Screen
+			}
 		}
 		log::info!("Event: {event:?} from plugin: {}", self.name());
 	}
