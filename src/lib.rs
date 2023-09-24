@@ -8,7 +8,25 @@ impl BlurPlugin for MyDummyPlugin {
 		"MyDummyPlugin"
 	}
 
-	fn on_event(&self, _event: &BlurEvent) {}
+	fn on_event(&self, _event: &BlurEvent) {
+		match &_event {
+			BlurEvent::NoEvent => {
+				// NoEvent
+			}
+			BlurEvent::LoginStart { username: _ } => {
+				// LoginStart
+			}
+			BlurEvent::LoginEnd {
+				username: _,
+				success: _,
+			} => {
+				// LoginEnd
+			}
+			BlurEvent::Screen { name: _ } => {
+				// Screen
+			}
+		}
+	}
 
 	fn free(&self) {}
 }
