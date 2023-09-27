@@ -10,6 +10,6 @@ name = "my_dummy_plugin"
 crate-type = ["cdylib"]
 
 [dependencies]
-blur-plugins-core = { git = "https://github.com/tobii-dev/blur-plugins-core", version = "0.1.1" }
+blur-plugins-core = { git = "https://github.com/tobii-dev/blur-plugins-core", version = "0.1.2" }
 log = "0.4.20"
 simplelog = "0.12.1"
