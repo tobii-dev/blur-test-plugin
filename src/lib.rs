@@ -5,7 +5,7 @@ struct MyDummyPlugin {}
 
 impl BlurPlugin for MyDummyPlugin {
 	fn name(&self) -> &'static str {
-		"MyDummyPlugin"
+		"MyTestPlugin"
 	}
 
 	fn on_event(&self, _event: &BlurEvent) {
@@ -27,12 +27,12 @@ impl BlurPlugin for MyDummyPlugin {
 			}
 		}
 	}
-
 	fn free(&self) {}
 }
 
 #[no_mangle]
 fn plugin_init(_api: &mut dyn BlurAPI) -> Box<dyn BlurPlugin> {
 	let plugin = MyDummyPlugin {};
+	println!("{}: Hello, world!", plugin.name());
 	Box::new(plugin)
 }
