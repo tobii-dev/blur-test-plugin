@@ -9,7 +9,7 @@ struct MyDummyPlugin {}
 
 impl BlurPlugin for MyDummyPlugin {
 	fn name(&self) -> &'static str {
-		"MyDummyPlugin"
+		"MyTestPlugin"
 	}
 
 	fn on_event(&self, event: &BlurEvent) {
@@ -47,7 +47,7 @@ fn plugin_init(_api: &mut dyn BlurAPI) -> Box<dyn BlurPlugin> {
 		.unwrap()
 		.build();
 
-	let log_file = blur_plugins_core::create_log_file("my_dummy_plugin.log").unwrap();
+	let log_file = blur_plugins_core::create_log_file("my_test_plugin.log").unwrap();
 	CombinedLogger::init(vec![
 		TermLogger::new(
 			LevelFilter::Trace,
