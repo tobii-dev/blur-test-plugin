@@ -13,7 +13,7 @@ impl BlurPlugin for MyDummyPlugin {
 	}
 
 	fn on_event(&self, event: &BlurEvent) {
-		log::debug!("Event: {event:?} from plugin: {}", self.name());
+		log::trace!("Event!!! {event:?}");
 		match &event {
 			BlurEvent::NoEvent => {
 				// NoEvent
@@ -31,7 +31,6 @@ impl BlurPlugin for MyDummyPlugin {
 				// Screen
 			}
 		}
-		log::info!("Event: {event:?} from plugin: {}", self.name());
 	}
 
 	fn free(&self) {
@@ -42,12 +41,13 @@ impl BlurPlugin for MyDummyPlugin {
 #[no_mangle]
 fn plugin_init(_api: &mut dyn BlurAPI) -> Box<dyn BlurPlugin> {
 	let plugin = MyDummyPlugin {};
+
 	let cfg = ConfigBuilder::new()
 		.set_time_offset_to_local()
 		.unwrap()
 		.build();
-	let log_path = std::format!(".\\amax\\log\\{}.log", plugin.name());
 
+	let log_file = blur_plugins_core::create_log_file("my_dummy_plugin.log").unwrap();
 	CombinedLogger::init(vec![
 		TermLogger::new(
 			LevelFilter::Trace,
@@ -55,14 +55,10 @@ fn plugin_init(_api: &mut dyn BlurAPI) -> Box<dyn BlurPlugin> {
 			TerminalMode::Mixed,
 			ColorChoice::Auto,
 		),
-		WriteLogger::new(
-			LevelFilter::Trace,
-			Config::default(),
-			std::fs::File::create(&log_path)
-				.expect(&std::format!("Couldn't create log file: {log_path}")),
-		),
+		WriteLogger::new(LevelFilter::Trace, Config::default(), log_file),
 	])
 	.unwrap();
+
 	log::info!("Init plugin: {}", plugin.name());
 
 	Box::new(plugin)
